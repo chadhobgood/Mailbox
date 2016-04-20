@@ -1,11 +1,9 @@
 # Mailbox
 Week 3 Homework
 
-## Mailbox
-
 The purpose of this homework is to leverage animations and gestures to implement more sophisticated interactions. We're going to use the techniques from this week to implement the Mailbox interactions.
 
-Time spent: `<Number of hours spent>`
+Time spent: `7 hours
 
 ### Features
 
