@@ -59,19 +59,53 @@
                                     </imageView>
                                 </subviews>
                             </scrollView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="reschedule" id="GKi-3l-Pjq">
+                            <view alpha="0.0" contentMode="scaleToFill" id="OdU-86-60q">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="reschedule" id="GKi-3l-Pjq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3hl-ih-EYP">
+                                        <rect key="frame" x="8" y="98" width="304" height="371"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="didPressReschedule:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Oc-oU-hFA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view alpha="0.0" contentMode="scaleToFill" id="Jhv-ZJ-exX">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="list" id="yzW-gc-5MP">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WD5-A8-n4b">
+                                        <rect key="frame" x="8" y="99" width="304" height="341"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="didPressList:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f3s-7f-CHw"/>
+                                            <action selector="didPressReschedule:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Oey-fe-fcL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="feedView" destination="yKf-7k-jud" id="g39-ya-mdt"/>
                         <outlet property="leftIcon" destination="PVf-3l-M6W" id="x8y-WQ-ARb"/>
+                        <outlet property="listView" destination="Jhv-ZJ-exX" id="lcz-VL-LQr"/>
                         <outlet property="messageImage" destination="PBc-Nm-bIU" id="fBU-tb-sv3"/>
                         <outlet property="messageView" destination="WYN-yM-dVf" id="AkH-S7-cKW"/>
-                        <outlet property="rescheduleView" destination="GKi-3l-Pjq" id="c6G-29-cLH"/>
+                        <outlet property="rescheduleView" destination="OdU-86-60q" id="Noh-ly-EeW"/>
                         <outlet property="rightIcon" destination="1Wc-V3-6au" id="Yew-Z4-yHM"/>
                         <outlet property="scrollView" destination="l4O-AS-09r" id="ZWE-ex-hDs"/>
                     </connections>
@@ -91,6 +125,7 @@
         <image name="feed" width="320" height="1202"/>
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
+        <image name="list" width="320" height="568"/>
         <image name="message" width="320" height="86"/>
         <image name="nav" width="320" height="65"/>
         <image name="reschedule" width="320" height="568"/>

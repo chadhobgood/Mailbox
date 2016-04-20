@@ -16,7 +16,8 @@ class MailboxViewController: UIViewController {
     @IBOutlet weak var feedView: UIImageView!
     @IBOutlet weak var leftIcon: UIImageView!
     @IBOutlet weak var rightIcon: UIImageView!
-    @IBOutlet weak var rescheduleView: UIImageView!
+    @IBOutlet weak var rescheduleView: UIView!
+    @IBOutlet weak var listView: UIView!
     
     var messageOriginalCenter: CGPoint!
     var leftIconOriginalCenter: CGPoint!
@@ -93,7 +94,7 @@ class MailboxViewController: UIViewController {
                 leftIcon.hidden = true
                 rightIcon.hidden = false
                 rightIcon.image = UIImage(named: "later_icon")
-                rightIcon.frame.origin.x = messageImage.frame.origin.x + 40
+                rightIcon.frame.origin.x = messageImage.frame.origin.x + 320 + 40
                 messageView.backgroundColor = laterColor
             }
             
@@ -115,9 +116,7 @@ class MailboxViewController: UIViewController {
                     }, completion: { (Bool) -> Void in
                         
                         // Hide the first message
-                        UIView.animateWithDuration(0.2, animations: {
-                            self.feedView.frame.origin.y -= 86
-                        })
+                        self.hideFirstMessage()
                         
                         // Reset the first message after 1 second
                         delay(1){ self.resetMessage() }
@@ -133,13 +132,41 @@ class MailboxViewController: UIViewController {
                     self.messageImage.frame.origin.x = 320
                     }, completion: { (Bool) -> Void in
                         
-                        // Hide the first message
-                        UIView.animateWithDuration(0.2, animations: {
-                            self.feedView.frame.origin.y -= 86
-                        })
+                        self.hideFirstMessage()
                         
-                        // Reset the first message after 1 second
                         delay(1){ self.resetMessage() }
+                })
+                
+            }
+            
+            // If reschedule
+            else if messageImage.frame.origin.x < -40 && messageImage.frame.origin.x > -200 {
+                
+                //  Slide all the way to the left
+                UIView.animateWithDuration(0.4, animations: {
+                    self.messageImage.frame.origin.x = -320
+                    }, completion: { (Bool) -> Void in
+                        
+                        // Show the reschedule screen
+                        UIView.animateWithDuration(0.2, animations: {
+                            self.rescheduleView.alpha = 1
+                        })
+                })
+                
+            }
+            
+            // If list
+            else if messageImage.frame.origin.x <= -200 {
+                
+                //  Slide all the way to the left
+                UIView.animateWithDuration(0.4, animations: {
+                    self.messageImage.frame.origin.x = -320
+                    }, completion: { (Bool) -> Void in
+                        
+                        // Show the reschedule screen
+                        UIView.animateWithDuration(0.2, animations: {
+                            self.listView.alpha = 1
+                        })
                 })
                 
             } else {
@@ -152,12 +179,43 @@ class MailboxViewController: UIViewController {
             
             
             
-            messageView.backgroundColor = messageBackgroundColor
+            
             
         }
     }
     
+    @IBAction func didPressReschedule(sender: AnyObject) {
+        // Hide the first message and view
+        UIView.animateWithDuration(0.2, animations: {
+            self.rescheduleView.alpha = 0
+            self.hideFirstMessage()
+        })
+        
+        // Reset the first message after 1 second
+        delay(1){ self.resetMessage() }
+    }
+    
+    @IBAction func didPressList(sender: AnyObject) {
+        UIView.animateWithDuration(0.2, animations: {
+            self.listView.alpha = 0
+            self.hideFirstMessage()
+        })
+        
+        delay(1){ self.resetMessage() }
+    }
+    
+    func hideFirstMessage() {
+        
+        // Hide the first message
+        UIView.animateWithDuration(0.2, animations: {
+            self.feedView.frame.origin.y -= 86
+        })
+        
+    }
+    
     func resetMessage() {
+        
+        messageView.backgroundColor = messageBackgroundColor
         
         self.messageImage.frame.origin.x = 0
         
