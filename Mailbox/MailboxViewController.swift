@@ -18,16 +18,22 @@ class MailboxViewController: UIViewController {
     @IBOutlet weak var rightIcon: UIImageView!
     @IBOutlet weak var rescheduleView: UIView!
     @IBOutlet weak var listView: UIView!
+    @IBOutlet weak var mainView: UIView!
     
     var messageOriginalCenter: CGPoint!
     var leftIconOriginalCenter: CGPoint!
     var rightIconOriginalCenter: CGPoint!
+    var mainViewOriginalCenter: CGPoint!
+    
+    var edgeGesture: UIScreenEdgePanGestureRecognizer!
     
     var messageBackgroundColor = UIColor(red:0.886, green:0.886, blue:0.886, alpha:1) //grey
     var archiveColor = UIColor(red:0.439, green:0.851, blue:0.384, alpha:1) //green
     var deleteColor = UIColor(red:0.922, green:0.329, blue:0.2, alpha:1) //red
     var laterColor = UIColor(red:0.98, green:0.827, blue:0.2, alpha:1) //yellow
     var listColor = UIColor(red:0.847, green:0.651, blue:0.459, alpha:1) //tan
+    
+    var menuIsShowing: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +45,11 @@ class MailboxViewController: UIViewController {
         messageOriginalCenter = messageImage.center
         leftIconOriginalCenter = leftIcon.center
         rightIconOriginalCenter = rightIcon.center
+        
+        edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onEdgePan:")
+        edgeGesture.edges = UIRectEdge.Left
+        mainView.addGestureRecognizer(edgeGesture)
+        mainViewOriginalCenter = mainView.center
         
     }
 
@@ -174,6 +185,7 @@ class MailboxViewController: UIViewController {
                 // Snap back to origin
                 UIView.animateWithDuration(0.2, animations: {
                     self.messageImage.frame.origin.x = 0
+                    self.messageView.backgroundColor = self.messageBackgroundColor
                 })
             }
             
@@ -225,6 +237,86 @@ class MailboxViewController: UIViewController {
     
     }
     
+    func onEdgePan(sender: UIScreenEdgePanGestureRecognizer) {
+        let translation = sender.translationInView(view)
+        
+        if menuIsShowing == false {
+            
+            if sender.state == UIGestureRecognizerState.Began {
+            
+                mainViewOriginalCenter = mainView.center
+                
+                
+            } else if sender.state == UIGestureRecognizerState.Changed {
+                
+                mainView.center.x = mainViewOriginalCenter.x + translation.x
+                
+                
+            } else if sender.state == UIGestureRecognizerState.Ended {
+                
+                if mainView.frame.origin.x >= 160 {
+                    
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.mainView.frame.origin.x = 300
+                    })
+                    
+                    menuIsShowing = true
+                    
+                } else {
+                    
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.mainView.frame.origin.x = 0
+                    })
+                    
+                    menuIsShowing = false
+                    
+                }
+            }
+        }
+    
+    }
+    
+    @IBAction func onMainViewPan(sender: UIPanGestureRecognizer) {
+        
+        let translation = sender.translationInView(view)
+        
+        if menuIsShowing == true {
+            
+            if sender.state == UIGestureRecognizerState.Began {
+                
+                mainViewOriginalCenter = mainView.center
+                
+                
+            } else if sender.state == UIGestureRecognizerState.Changed {
+                
+                mainView.center.x = mainViewOriginalCenter.x + translation.x
+                
+                
+            } else if sender.state == UIGestureRecognizerState.Ended {
+                
+                if mainView.frame.origin.x >= 160 {
+                    
+                    menuIsShowing = true
+                    
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.mainView.frame.origin.x = 300
+                    })
+                    
+                } else {
+                    
+                    menuIsShowing = false
+                    
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.mainView.frame.origin.x = 0
+                    })
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
 
 
     /*
